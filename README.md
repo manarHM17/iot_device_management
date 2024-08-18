@@ -1,5 +1,5 @@
 # iot_device_management
-# IoT_Devices_Management
+
 
 This project is an IoT Device Management system that uses gRPC services to manage and monitor IoT devices, such as PCs and Raspberry Pi boards, within a corporate network.
 
