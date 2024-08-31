@@ -59,6 +59,11 @@ class InitialConfigurationStub(object):
                 request_serializer=device__pb2.ConfigureNetworkRequest.SerializeToString,
                 response_deserializer=device__pb2.ConfigureNetworkResponse.FromString,
                 _registered_method=True)
+        self.DeleteDevice = channel.unary_unary(
+                '/IotDeviceManagement2.InitialConfiguration/DeleteDevice',
+                request_serializer=device__pb2.DeleteDeviceRequest.SerializeToString,
+                response_deserializer=device__pb2.DeleteDeviceResponse.FromString,
+                _registered_method=True)
 
 
 class InitialConfigurationServicer(object):
@@ -88,6 +93,12 @@ class InitialConfigurationServicer(object):
         context.set_details('Method not implemented!')
         raise NotImplementedError('Method not implemented!')
 
+    def DeleteDevice(self, request, context):
+        """Missing associated documentation comment in .proto file."""
+        context.set_code(grpc.StatusCode.UNIMPLEMENTED)
+        context.set_details('Method not implemented!')
+        raise NotImplementedError('Method not implemented!')
+
 
 def add_InitialConfigurationServicer_to_server(servicer, server):
     rpc_method_handlers = {
@@ -110,6 +121,11 @@ def add_InitialConfigurationServicer_to_server(servicer, server):
                     servicer.ConfigureNetwork,
                     request_deserializer=device__pb2.ConfigureNetworkRequest.FromString,
                     response_serializer=device__pb2.ConfigureNetworkResponse.SerializeToString,
+            ),
+            'DeleteDevice': grpc.unary_unary_rpc_method_handler(
+                    servicer.DeleteDevice,
+                    request_deserializer=device__pb2.DeleteDeviceRequest.FromString,
+                    response_serializer=device__pb2.DeleteDeviceResponse.SerializeToString,
             ),
     }
     generic_handler = grpc.method_handlers_generic_handler(
@@ -220,6 +236,33 @@ class InitialConfiguration(object):
             '/IotDeviceManagement2.InitialConfiguration/ConfigureNetwork',
             device__pb2.ConfigureNetworkRequest.SerializeToString,
             device__pb2.ConfigureNetworkResponse.FromString,
+            options,
+            channel_credentials,
+            insecure,
+            call_credentials,
+            compression,
+            wait_for_ready,
+            timeout,
+            metadata,
+            _registered_method=True)
+
+    @staticmethod
+    def DeleteDevice(request,
+            target,
+            options=(),
+            channel_credentials=None,
+            call_credentials=None,
+            insecure=False,
+            compression=None,
+            wait_for_ready=None,
+            timeout=None,
+            metadata=None):
+        return grpc.experimental.unary_unary(
+            request,
+            target,
+            '/IotDeviceManagement2.InitialConfiguration/DeleteDevice',
+            device__pb2.DeleteDeviceRequest.SerializeToString,
+            device__pb2.DeleteDeviceResponse.FromString,
             options,
             channel_credentials,
             insecure,

@@ -114,6 +114,23 @@ class InitialConfiguration(device_pb2_grpc.InitialConfigurationServicer):
             context.set_code(grpc.StatusCode.INTERNAL)
             return device_pb2.RegisterDeviceResponse(message=f"Failed to register device: {err}", device_id=0)
 
+    def DeleteDevice(self, request, context):
+        device_id = request.device_id
+        sql = "DELETE FROM devices WHERE id = %s"
+        try:
+            self.cursor.execute(sql, (device_id,))
+            self.db_connection.commit()
+            print(f"Device deleted successfully: {request.device_id}")
+            if self.cursor.rowcount > 0:
+                return device_pb2.DeleteDeviceResponse(success=True, message="Device deleted successfully")
+            else:
+                context.set_details("Device not found")
+                context.set_code(grpc.StatusCode.NOT_FOUND)
+                return device_pb2.DeleteDeviceResponse(success=False, message="Device not found")
+        except mysql.connector.Error as err:
+            context.set_details(f"Error deleting device: {err}")
+            context.set_code(grpc.StatusCode.INTERNAL)
+            return device_pb2.DeleteDeviceResponse(success=False, message=f"Failed to delete device: {err}")
     def UpdateOwnDevice(self, request, context):
         sql = """
            UPDATE devices

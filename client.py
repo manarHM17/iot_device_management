@@ -26,6 +26,16 @@ def register_device(stub):
     print(f"Response message: {response.message}")
     print(f"Registered device ID: {response.device_id}")
 
+def delete_device(stub):
+    device_id = int(input("Enter device ID to delete: "))
+
+    request = device_pb2.DeleteDeviceRequest(device_id=device_id)
+    response = stub.DeleteDevice(request)
+
+    if response.success:
+        print("Device deleted successfully.")
+    else:
+        print(f"Failed to delete device: {response.message}")
 
 def update_own_device(stub):
     device_id = int(input("Enter your device ID: "))
@@ -171,7 +181,8 @@ def run():
         print("7. Get Current Firmware Version")
         print("8. Update Firmware")
         print("9. Set Firmware Version")
-        print("10. Exit")
+        print("10. Delete Device")
+        print("11. Exit")
 
         choice = input("Enter your choice: ")
 
@@ -194,6 +205,8 @@ def run():
         elif choice == '9':
             set_firmware_version(stub3)
         elif choice == '10':
+            delete_device(stub1)
+        elif choice == '11':
             break
         else:
             print("Invalid choice. Please choose a valid option.")
