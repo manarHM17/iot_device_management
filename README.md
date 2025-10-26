@@ -1,6 +1,8 @@
 # IoT Device Management (gRPC)
 
 This repository contains a small example of IoT device management using gRPC and Protocol Buffers in Python. The example includes a server, a sample client, the proto definition, generated stubs, and example firmware files.
+
+
 <img width="361" height="411" alt="image" src="https://github.com/user-attachments/assets/bf7a0c3e-005c-415b-a750-4d990b309028" />
 
 
@@ -89,15 +91,7 @@ The sample `server.py` likely exposes RPCs for e.g., GetFirmwareList, GetFirmwar
 - Keep the firmware binaries out of source control for real projects; use an artifact store or signed releases instead.
 - For production-grade deployments, secure the gRPC channel with TLS and add authentication/authorization for management operations.
 
-## Troubleshooting
 
-- If you see protobuf import errors, ensure the directory with `device_pb2.py` is on PYTHONPATH or run scripts from the repository root.
-- If port binding fails, modify the configured port in `server.py` or free the port.
-- For protobuf compilation errors, confirm you have matching protobuf/grpcio versions installed.
-
-## License
-
-This repository is provided as an example. No license file is included — add one if you plan to reuse the code in production.
 
 ## Where to look next
 
